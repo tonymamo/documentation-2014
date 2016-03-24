@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<!-- Define site name -->
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8"/>
+		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		
+	</head>
+
+<body>
+    
+	
+	
+		<h1>CSS Best Practices</h1>
+			<section id="naming-conventions">
+				<h2>Naming Conventions</h2>
+				<ul>
+					<li>CSS class names should be sensible to other developers. Class names should communicate useful information to fellow developers. They help to provide hooks for the presentational or behavioral layers to semantic HTML. </li>
+					<li>Avoid systematic use of abbreviated class names. Don't make things difficult to understand. Leave plenty of comments if there could possibly be any confusion for a different developer at a later time.</li>
+					<li>The most reusable components are those with class names that are independent of the content. Avoid contextual information in a class name such as a color or location (i.e. <code>.left-sidebar</code>).</li>
+					<li>Class names should be lowercase and should only use hyphens: <code>class="horizontal-list"</code>. Class names <strong>should not</strong> use camelCase or under_scores.</li>
+					<li>Prefix Javascript hooks with "js-": <code>js-submit</code>. Don't add presentational styles to them, only use for behaviors. If something's style changes, append additional classes that can be used without JS so a non-JS environment such as Java can use same class(es) for progressive enhancement/graceful degradation.</li>
+					
+					<li>Selectors for components should uses class names; avoid the use of generic tags.</li>
+					<li><span class="label label-important">Important</span> <strong>Don't use <code>#id</code>s in your CSS!</strong> They add an order of magnitude that makes them difficult to override, usually leading to over-qualifying selectors and adding unnecessary classes or IDs elsewhere, like on the <code>body</code>. Refer to <a href="http://csswizardry.com/2011/09/writing-efficient-css-selectors/">this article about writing efficient selectors</a> by Harry Roberts of CSSwizardry.com to learn more about specificity in selectors.</li>
+				</ul>
+			</section><!-- /#naming-conventions -->
+
+
+			<section id="syntax">
+				<h2>Syntax</h2>
+				<div class="row-fluid">
+					<ul>
+						<li>Always close the last declaration in a ruleset with a semicolon (<code>;</code>). It might be the last one now, but might not be later.</li>
+						<li>Leave a space before the opening brace and the colon in rulesets. It makes for quicker highlighting of text.</li>
+						<li>Close the ruleset with a brace in the same column as the rule name
+                            <div class="hidden-code">
+                                <span class="button button-small">code example</span>
+<pre class="hide codeSample prettyprint lang-css linenums">
+.class-name {
+	property: value;
+}
+</pre>
+                            </div>
+                        </li>
+						<li>Line up vendor prefixes so their properties line up, it can speed up changing values, especially in editors that allow multi-line column select
+                            <div class="hidden-code">
+                                <span class="button button-small">code example</span>
+<pre class="hide codeSample prettyprint lang-css linenums">
+.sample-class {
+  -webkit-box-shadow: 1px 10px 5px #458;
+     -moz-box-shadow: 1px 10px 5px #458;
+	      box-shadow: 1px 10px 5px #458;
+}
+</pre>
+                            </div>
+						</li>
+						<li>Don't overqualify selectors. <code>.nav{}</code> is faster and more robust/reusable than <code>ul.nav{}</code>. See <a href="http://csswizardry.com/2011/09/writing-efficient-css-selectors/">this article on efficient css selectors</a> and <a href="http://csswizardry.com/2012/07/shoot-to-kill-css-selector-intent/">this article about selector intent</a> explaining this idea.</li>
+						<li>Use one discrete selector per line in multi-selector rulesets 
+                            <div class="hidden-code">
+                                <span class="button button-small">code example</span>
+<pre class="hide codeSample prettyprint lang-css linenums">
+.selector,              
+.selector-name1,        
+.selector-name2 {       
+	display: block;     
+    float: none;        
+    background: url("x.png"); 
+    margin: 0;          
+}
+</pre>
+                            </div>
+						</li>
+						<li>Preferably, always use double quotes, in case there are contractions or something quoted inside of an attribute. Also useful for <code>background: url();</code> and <code>content: " ";</code> which require quotes.</li>
+						<li>Where applicable, avoid specifying units for zero-values.</li>
+						<li>When possible, write your CSS properties in shorthand. Instead of having <code>margin-top</code>, <code>margin-bottom</code>, <code>margin-left</code>, and <code>margin-right</code>, just declare <code>margin</code> once and combine their values. Keep in mind that the order goes clockwise starting at the top. You can remember this with the mnemomic device TRBL (trouble), which stands for Top, Right, Bottom, Left. 
+                            <div class="hidden-code">
+                                <span class="button button-small">code example</span>
+<pre class="hide codeSample prettyprint lang-css linenums">
+/* Common Shorthand Declarations */
+.element {
+    margin: top | right | bottom | left; /* explicit */
+    margin: top/bottom | left/right; /* symmetrical shorthand */
+    padding: top | right | bottom | left; /* explicit */
+    padding: top/bottom | left/right; /* symmetrical shorthand */
+    background: color | url | repeat | position | attachment;
+    font: style | weight | size/line-height | family;
+    border: width | style | color;
+    list-style: type | position | image;
+}
+</pre>	
+                            </div>					
+						</li>
+						<li>Writing in shorthand will prevent errors and others overriding values higher up in a long ruleset. If a <code>padding-top</code> is set, and then <code>padding</code> a few lines down, it will override the first declaration, even if you didn't mean to. By ordering properties according to the Ordering section above, and using shorthand, we can avoid these gotchas altogether.</li>
+					</ul>
+				</div>
+			</section><!-- /#syntax --> 
+
+
+			<section id="formatting">
+				<h2>Formatting</h2>
+				<ul>
+					<li>Always use the multi-line format for writing CSS, even if there is only one declaration. The main reason for this is for using Version Control like Subversion. It is much easier to do a per-line Diff/Compare than to try and find the difference in one long line. Also, multi-line helps in readability and scanability for developers.
+                        <div class="hidden-code">
+                            <span class="button button-small">code example</span>
+                            <div class="hide">
+<pre class="codeSample prettyprint lang-css linenums goodCode">
+/* GOOD */
+.selector-name1,
+.selector-name2 {
+    display: block;
+    color: #666;
+    background: #bada55;
+}           
+</pre>
+<pre class="codeSample prettyprint lang-css linenums badCode">
+/* BAD */
+.selector-name1, .selector-name2 { display: block; color: #666; background: #bada55;}
+</pre>
+                            </div>
+                        </div>				
+					</li>
+					<li>We are not concerned about file size in the authored, formatted CSS file as it will be compiled and minified on deployment. Let's use this to our advantage and make our stylesheets comprehensible and organized for maintainability.</li>
+					<li>Use only one discrete selector per line, and indent the ruleset once. There should also be only one rule per line as well. This will make for a very consistent stylesheet and save headaches down the road.</li>
+					<li>The order in which you write properties actually does not matter, but writing it in a consistent way can help one understand how one thing will affect another. The general preference is for structurally important properties (e.g. positioning and box-model) to be declared prior to all others, and to group things that belong together. 
+                        <div class="hidden-code">
+                            <span class="button button-small">code example</span>
+<pre class="hide codeSample prettyprint lang-css linenums">
+.element {
+    /* BOX */
+    display: ;
+    visibility: ;
+    float: ;
+    clear: ;
+    position: ;
+    top: ;
+    right: ;
+    bottom: ;
+    left: ;
+    z-index: ;
+    width: ;
+    height: ;
+    overflow: ;
+    margin: ;
+    padding: ;
+    /* BORDER */	
+    border: ;
+    /* TEXT */
+    font: ;
+    text-align: ;
+    text-transform: ;
+    text-decoration: ;
+    letter-spacing: ;
+    word-spacing: ;
+    white-space: ;
+    vertical-align: ;
+    color: ;
+    /* BACKGROUND */
+    background: ;
+    /* OTHER */	
+    list-style: ;
+    table-layout: ;
+    caption-side: ;
+    border-collapse: ;
+    border-spacing: ;
+    empty-cells: ;
+    opacity: ;
+    cursor: ;
+    content: ;
+    quotes: ;
+    /* VENDOR PREFIXES */
+    -webkit- : ;
+    -moz- : ;
+    -ms- : ;
+    -o- : ;
+    unprefixed: ;
+}               
+</pre>
+                        </div>				
+					</li>
+					<li>Set tabs to 4 spaces in your code editor (also known as Soft Tabs). This way, everyone can set their own viewing preference while keeping the code normalized at one tab character.</li>
+					<li>Separate each ruleset with a blank line</li>
+					<li>Make a Table of Contents (TOC) at the top of the CSS file.
+                        <div class="hidden-code">
+                            <span class="button button-small">code example</span>
+<pre class="hide codeSample prettyprint lang-css linenums">
+/*------------------------------------*\
+        TABLE OF CONTENTS
+\*------------------------------------*/
+/*
+$BASE
+$TYPOGRAPHY
+$COLORS
+*/ 
+
+...
+
+/*------------------------------------*\
+        $Base
+\*------------------------------------*/
+</pre>
+                        </div>
+					</li>
+					<li>Use large comments for section titles from the TOC, and prefix title with a <code>$</code> sign to use a search filter to jump to a section. Using the <code>$</code> allows you to narrow your search instead of querying everything that may use that same name as a <code>.class</code> in a section.</li>
+					<li>Leave 5 carriage returns (a.k.a. hard returns) after a section for ease of scanning through stylesheets (sections discussed under Commenting).</li>
+					<li>Leave comments with example <code>HTML</code> markup in them to demonstrate structure.</li>
+				</ul>
+			</section><!-- /#formatting -->
+            
+            
+      		<section id="selectors">
+				<h2>Best Practices for CSS Selectors</h2>
+				<h3>Target <code>.classes</code>, not an <code>#id</code></h3>
+                <p>Classes are reusable. Classes can be stacked. Javascript bound to classes should be / are (by intent) reusable. Keep your code <a target="_blank" href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself" title="AND your machine: keep the magic smoke *in*">dry<!--i class="fa fa-external-link"></i--></a>. <code>id</code> based styles can cause <a href="#specwars">specificity wars<!--i class="fa fa-link"></i--></a>.</p>
+				<p>There are a number of highly useful selectors that you might want to <a href="http://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048">study</a></p>
+				<p>Don't make blanket statements (that's the CORE team / CSS reset's job). Generic content styles should be wrapped in a semantically named class (i.e., <code>.content</code>). Example LESS:</p>
+                <div class="hidden-code">
+                	<span class="button button-small">code example</span>
+    				<div class="hide">
+<pre class="codeSample prettyprint lang-css linenums goodCode">
+article {
+    max-width: 45em;
+    margin: 0 auto;
+    
+    .content {
+        padding: 0 0 1em 0;
+        border-bottom: 1px solid lightgrey;
+        
+        p, ul {
+            line-height: 1.5;
+            
+            a {
+            color: @fontColor;
+            }
+        }
+    }
+}
+</pre>
+                   </div>
+            	</div>
+
+				<h3>Reasons <em>to use</em> an <code>id</code> selector</h3>
+				
+                <p>None.</p>
+                <p>&nbsp;</p>
+                <p>...ok, fine.</p>
+                <p>An <code>id</code> is reasonable <em>only</em> if you are cordoning off styles for a specific page / instance, and want to ensure you win the <a href="#specwars">spec-war<!--i class="fa fa-link"></i--></a>.</p>
+                <p>Note: using an <code>id</code> to ensure style override is preferable to the <a target="_blank" href="http://demosthenes.info/blog/591/Subverting-The-Cascade-Using-important-In-CSS" title="!important is a hell of a drug">nuclear option<!--i class="fa fa-external-link"></i--></a>.</p>
+           	</section><!-- /#selectors --> 
+              
+              
+           	<section id="specwars">
+              	<h2>Specificity Wars</h2>
+				
+				<p>"You give every id selector ("#whatever") a value of 100, every class selector (".whatever") a value of 10 and every HTML selector ("whatever") a value of 1. Then you add them all up and hey presto, you have the specificity value:</p>
+				<ul>
+					<li><code>p</code> has a specificity of 1 (1 HTML selector)</li>
+					<li><code>div p</code> has a specificity of 2 (2 HTML selectors; 1+1)</li>
+					<li><code>.sith</code> has a specificity of 10 (1 class selector)</li>
+					<li><code>div p.sith</code> has a specificity of 12 (2 HTML selectors and a class selector; 1+1+10)</li>
+					<li><code>#sith</code> has a specificity of 100 (1 id selector)</li>
+					<li><code>body #darkside .sith p</code> has a specificity of 112 (HTML selector, id selector, class selector, HTML selector; 1+100+10+1)</li>
+				</ul>
+				<p>If all of these examples were used, <code>div p.sith</code> (with a specificity of 12) would win out over <code>div p</code> (with a specificity of 2) and <code>body #darkside .sith p</code> would win out over all of them, regardless of the order." -- Andy Clarke, <a target="_blank" href="http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html">CSS: Specificity Wars<!--i class="fa fa-external-link"></i--></a></p>
+				<p>Additional Links:</p>
+				<ul>
+					<li><a target="_blank" href="http://screwlewse.com/2010/07/dont-use-id-selectors-in-css/">Don't use ID selectors in CSS<!--i class="fa fa-external-link"></i--></a></li>
+					<li><a target="_blank" href="http://oli.jp/2011/ids/">Don't use ID selectors in CSS?<!--i class="fa fa-external-link"></i--></a></li>
+					<li><a target="_blank" href="http://adactio.com/journal/4267/">Landmark Roles<!--i class="fa fa-external-link"></i--></a></li>
+				</ul>
+            </section><!-- /#specwars --> 
+
+			<section id="nevers">
+				<h2>Nevers</h2>
+				<ul>
+					<li>Never use camelCase or under_scores.</li>
+					<li>Never reference <code>#id</code>s in your CSS.</li>
+				</ul>
+			</section>
+
+</body>
+</html>

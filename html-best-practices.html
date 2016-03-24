@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- Define site name -->
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8"/>
+		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Set title using sitename & pagetitle (defined in page HTML) -->
+		<title>HTML Framework : HTML Best Practices</title>
+
+	</head>
+
+<body>
+    <h1>HTML Best Practices</h1>
+
+<section>
+	<h2>Semantics</h2>
+	<p>Using semantic HTML is important for accessibility, as it allows assistive technology to intelligently traverse the page contents. Semantic HTML can also help with search engine optimization. Be sure to use the proper element for the content. </p>
+	<ul>
+		<li>Use standard elements such as <code>p</code> and <code>hx</code> for paragraphs and headers. 
+		<li>Use HTML5 tags like <code>article</code>, <code>section</code>, etc. properly to create a sensible hierarchy. Use this flowchart as a way to determine how your content should be tagged: <a href="http://html5doctor.com/downloads/h5d-sectioning-flowchart.pdf">HTML5 tag decision tree</a>.</li>
+	</ul>
+	
+	<h2>Naming Conventions</h2>
+	
+		<p>Don't abbreviate words in class names unless there's a constraint with an existing name/element/function/et al.  It's bad for SEO and for developer comprehension.</p>
+		<p>When naming files that will appear as part of a URL, it is imperative to use a hyphen (-) between words.  Search engines 'read' a hyphen as a space, while 
+			they interpret underscores as an actual character, thus skewing the readability of the keyword(s).  Camel case is also an inaccurate way to make filename-related 
+			keywords readable by a search engine.  They are fine for classes used for CSS or JS hooks as a developer aid, but they should not be used when naming any HTML/JSP file.</p>
+	</ul>
+
+	<h2>Syntax</h2>
+	<ul>
+		<li>Always use double quotes around HTML element attributes.</li>
+		<li>Do not leave attribute values empty unless it is required due to programmatic reasons.</li>
+		<li><code>ID</code>s can be used in markup, however, in a few certain situations. The best example is for anchor links within a page. They can also be used as Javscript hooks where a single element is targeted; again, prefixing the name with "js-" is a good practice. <a href="http://csswizardry.com/2011/09/when-using-ids-can-be-a-pain-in-the-class/">This article</a> goes over some of these exceptions. In general, they are not useful in writing CSS because they are not resuable, which is against the nature of <i>Cascading</i> Style Sheets.</li>
+	</ul>
+
+	<h2>Formatting</h2>
+	<ul>
+		<li>Set tabs to 4 spaces in your code editor (also known as Soft Tabs). This way, everyone can set their own viewing preference while keeping the code normalized at one tab character.</li>
+		<li>Be cognizant of removing extra spaces, trailing whitespace, extra empty lines, etc, but don't get bogged down in it.  We will rectify any extra spacing or empty lines on the server side once the code is rendered to the screen.</li>
+		<li>Never leave any space before your doctype declaration at the top of the page.  This is the first step to ensuring Internet Explorer doesn't go into Quirks mode.</li>
+		<li>Try to keep HTML comments out of the main section of code.  Comments at the beginning or end of a file make commenting out blocks of HTML much easier than comments dispersed throughout the code.</li>
+	
+	<li id="comment-end-div">Use comments to designate a closing tag:
+<pre class="codeSample prettyprint lang-html linenums">
+&lt;div id="id-name"&gt;
+...
+&lt;/div&gt;&lt;!-- /#id-name --&gt;
+&lt;span class="class-name"&gt;
+...
+&lt;/span&gt;&lt;!-- /.class-name --&gt;
+</pre>
+</li>
+</ul>
+
+	<h2>Testing</h2>
+	<ul>
+		<li>Cross-browser test your code <strong>before</strong> submitting your file for code review.</li>
+		<li>Run your code through a W3C-style validator <strong>before</strong> submitting your file for code review.</li>
+	</ul>
+
+	<h2>Caution</h2>
+	<ul>
+		<li>Be cautious when using <abbr title="Accessible Rich Internet Application">ARIA</abbr> attributes which require mapping to an ID. This can cause programmatic confusion as we should be avoiding the ID attribute to remain clear of programmatic territory.</li>
+		<li>Be cautious when using web fonts using the @font-face technology.  Among other reasons, <a href="http://paulirish.com/2010/font-face-gotchas/">there are these to consider</a>.</li>
+	</ul>
+
+	<h2>Nevers</h2>
+	<ul>
+		<li>Never use "@import" to reference an external stylesheet</li>
+		<li>Never use inline styles</li>
+		<li>Never use uppercase for element tags</li>
+		<li>Never use tables for layout</li>
+	</ul>
+</section>
+
+</body>
+</html>

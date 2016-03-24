@@ -1,0 +1,226 @@
+<html>
+<head>
+	<title>Block, Element, Modifier</title>
+	<link rel="stylesheet" type="text/css" href="http://necolas.github.io/normalize.css/3.0.0/normalize.css" />
+	<style type="text/css">
+		body {
+			margin: 2em;
+		}
+
+		code {
+			color: teal;
+			background: whitesmoke;
+			border: 1px solid lightgrey;
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		article {
+			max-width: 45em;
+			margin: 0 auto;
+		}
+
+		figure, p, li {
+			margin: 0 0 1em 0;
+		}
+
+		section {
+			padding: 0 0 1em 0;
+			border-bottom: 1px solid lightgrey;
+		}
+
+		p {
+			line-height: 1.5;
+		}
+
+		a {
+			color: blue;
+		}
+	</style>
+</head>
+<body>
+	<article>
+		<h1>The <abbr title="Block, Element, Modifier">BEM</abbr> Naming Convention</h1>
+		<section>
+			<h2>What is BEM?</h2>
+			<p>BEM stands for block, element, and modifier, and is a front-end naming convention for CSS class names. The intention of the BEM methodology is to provide a systematic approach to provide meaning and transparency to other developers. It is a great solution for projects that iterate over long periods of time, are (or could become) large in scale or size, have many developers working on them, or any combination of these.</p>
+			<p>Usually, a naming convention is not required or enforced on smaller static projects, because there are going to be fewer issues of using class names that already exist, and maintenance is not as common. In contrast, larger projects are more prone to smaller iterative changes, and developers run into issues with coming up with names for all of the user interface elements. Along with this comes the problem of CSS specificity, where the selectors in the CSS file start to increase in depth or level to override other styles. This is because there may be styling already associated with that class name or element and it needs to be modified in a different context.</p>
+		</section>
+		<section>
+			<h2>The Benefits of BEM</h2>
+			<p>One of the key benefits of BEM naming is that it will ensure consistency among the developers, instead of naming being a free-for-all approach which leads to many issues later on. In addition to that, here are some other huge benefits specific to the BEM style:</p>
+			<ul>
+				<li>
+					<p>It shows the parent-child relationships of DOM elements without being specifically tied to any one type of element. This means you can style <code>li</code>'s inside of an <code>ul</code> with classes that can also be used on <code>dt</code>'s and <code>dd</code>'s inside of a <code>dl</code>.</p>
+				</li>
+				<li>
+					<p>It removes the reliance on specific HTML structure because the selectors haven't been qualified, as in the over-qualified <code>div.promo</code> class. Compare that to the unqualified version of just <code>.promo</code>, which can be applied to any element.</p>
+				</li>
+				<li>
+					<p>Modifications such as an active state on a UI element or a hover on a link are more explicitly shown, increasing the transparency to developers on what the ruleset for that selector actually does. By pairing the modification name with the element it is modifying, there is no mistaking what that class does.</p>
+				</li>
+				<li>
+					<p>BEM allows you to separate structure from skin easily, by simply applying multiple classes to an DOM element. Some of the classes can be strictly reserved for spacing and layout items like <code>margin</code>s, <code>float</code>s, and <code>position</code> attributes, and then apply another class that provides the styling attributes such as <code>background</code>, <code>font</code>, and <code>border</code>s. Read <a href="http://csswizardry.com/2012/04/the-single-responsibility-principle-applied-to-css/">this article by Harry Roberts</a> of CSSWizardry about what he calls the "single responsibility principle".
+					</p>
+				</li>
+				<li>
+					<p>Another benefit of BEM is how it can be combined with the ideas of Object-Oriented CSS. The best example of this is how you can have a base button style, and then have modifiers that you can mix and match to create unique variations. For example, you might have a large and small button, a call to action button, or various button states like disabled or full-width. You can name these clearly using a BEM method and they will be easily understood how they work by other developers. Simply combine multiple classes in your HTML and now you have a complete system of buttons in a small amount of code. See the section about Component Modifiers in <a href="http://nicolasgallagher.com/about-html-semantics-front-end-architecture/#component-modifiers">this article by Nicolas Gallagher</a> for a great explanation, but not that the naming convention he uses was before he adopted a true BEM-style naming convetion.
+					</p>
+				</li>
+				<li>
+					<p>Lastly, one of the best things about BEM is that, if used correctly, it can eliminate all CSS specificity issues because ideally everything would be styled on a class, and each CSS selector for those classes would only be one level deep. There are various reasons why keeping them only one level deep is extremely advantageous, and they are outlined in <a href="http://csswizardry.com/2012/05/keep-your-css-selectors-short/">this article</a>. For a better explanation about specificity, start <a href="http://css-tricks.com/specifics-on-css-specificity/
+					">here for a great overview</a> , and check out this <a href="http://specificity.keegan.st/">specificity calculator</a> to see how it works.
+					</p>
+				</li>
+			</ul>
+		</section>
+		<section>
+			<h2>Writing BEM</h2>
+			<h3>Blocks</h3>
+			<p>As we start to develop a page, we tend to think of different sections as objects, modules, widgets, or components. Despite the name differences, the idea remains the same: it is a building block comprised of various elements that go together to make up part of the page. Initially we tend to think of these blocks as the major layout containers of the page, like the header, main content, sidebar, and footer. However, these major blocks can then be divided in to smaller blocks of other elements. For example, within a header block, you might find a logo block, search form block, and navigation block.</p>
+
+			<figure>
+				<img src="img/head-marked2.jpg" />
+				<figcaption>A Head block comprised of four other blocks.</figcaption>
+			</figure>
+
+			<figure>
+				<img src="img/search-bar.jpg" />
+				<figcaption>A search bar block by itself.</figcaption>
+			</figure>
+
+			<h3>Elements</h3>
+			<p>The easiest way to think of elements is to consider the parent-child relationship of DOM elements. If our block is the parent, then the elements are the DOM items inside of the block. In our search form block we may have an input element and a button element. Separately they would not do anything, but together these two elements create the search form block.</p>
+
+			<figure>
+				<img src="img/input-button.jpg" />
+				<figcaption>Two elements that make up the search bar block.</figcaption>
+			</figure>
+
+			<h3>Modifiers</h3>
+			<p>The idea of modifiers came from the need to style elements when in different states or context, but to inherit the base styling of an element at the same time. Some examples of modifiers include an active state on a navigational item to show the current page, a call to action button, or a special design treatment to set something apart from similar items, like a variation that shows a special sale on an item.
+			</p>
+
+			<figure>
+				<img src="img/menu-current-items.jpg" />
+				<figcaption>An active-state modification on an element in a block made up of tabs.</figcaption>
+			</figure>
+
+			<figure>
+				<img src="img/search-background2.jpg" />
+				<figcaption>A search block with a modification to give it a different background to stand out, due to it being placed in a different context.</figcaption>
+			</figure>
+		</section>
+
+		<section>
+			<h2>Putting it all together</h2>
+			<p>From this base understanding of blocks, elements, and modifiers, we can now begin learning how to translate this in to a naming convention. The first step is to understand the pattern as demonstrated below, and then a real-life example will follow.</p>
+			<ol>
+				<li>
+					<code>.block {}</code>
+					<p>This represents the higher level of an abstraction or component.</p>
+				</li>
+				<li>
+					<code>.block__element {}</code>
+					<p>The two underscores and name represent an element that is a descendent of <code>.block</code> that helps form the block as a whole.</p>
+				</li>
+				<li>
+					<code>.block--modifier {}</code>
+					<p>The two hyphens with a name represent a modification to the class preceeding it, such as a variation or state, of <code>.block</code>.</p>
+				</li>
+				<li>
+					<code>.block__element--modifier {}</code>
+					<p>The two hyphens with a name represent a modifiction to the descendant element, such as a variation or state, of <code>.block__element</code>.</p>
+				</li>
+			</ol>
+
+			<p>Notice the use of double underscores and hyphens: they may seem ugly at first, but the benefits outweigh the vanity. By doubling up, it allows you to use a single hyphen in a name in case something can't be conveyed in just a single word. For example, you can name a block <code>.search-form</code>, and still use double underscores and hyphens to show the element and modifier relationships. Otherwise, we would end up with even uglier class names like <code>.search-form-input-alternate</code>, which would be much more confusing than <code>.search-form__input--alternate</code>, which explicitly shows the element and modification, and the parent-child relationship between the block and element.</p>
+
+			<h3>Real-life Example</h3>
+			<p>A practical example to demonstrate BEM naming would be an abstraction for a menu. Let's assume that on a site we are building there are multiple menus made up of lists. We want to write a menu block that can be reused to give the basic properties shared by all of the menus on the page, such as not having bullets or numbers for the list, the same padding, display properties, and so on. We could call our menu block <code>.menu</code>, which can be applied to any HTML element, but let's assume we are using either an <code>ul</code> or <code>ol</code>, depending on what is more semantic.</p>
+
+			<p>Next, we can add a class of <code>.menu__item</code> to each of the <code>li</code>s in our menus, so now we have a class to style on instead of styling on <code>.menu li</code> in our CSS. Browsers actually read CSS selectors from right to left, so first it will look for every <code>li</code> and then see if it is <code>.menu</code>, not the other way around as we as normally read, from left to right. By styling on the HTML element <code>li</code>, it becomes overly specific and not as performant as just a single class like <code>.menu__item</code>. By using the latter, the browser only looks for elements with that class and stops there; it has no more searching in the DOM tree to do.</p>
+
+			<p>Finally, we can add modifications in two ways: first, we can modify the block itself, for the specific styling of each <code>.menu</code>, and second, for modifying any list item for things like an active state of a menu item. The former could be written as something like <code>.menu--main</code> and <code>.menu--sub-nav</code>, to apply different styles to differentiate between a main menu and a sub-menu. Then, the active state for a menu item could be written as <code>.menu__item--active</code>, and that class used to add specific styling to a current page in the menu. Keep in mind that these modifier classes are used in addition to their un-modified classes in the HTML, so there will be multiple classes. This goes back to the idea of OOCSS as described under the benefits earlier on this page. </p>
+
+			<p>All in all, we can now see the entire BEM solution:</p>
+			<ul>
+				<li>
+					<code>.menu {}</code>
+					<p>This class is for the main block that we are styling. Keep in mind that it should be reusable on any HTML element ideally.</p>
+				</li>
+				<li>
+					<code>.menu__item {}</code>
+					<p>This class is an item that is a child of the <code>.menu</code> parent.</p>
+				</li>
+				<li>
+					<code>.menu--main</code> and <code>.menu--sub-nav</code>
+					<p>These represent modifications to <code>.menu</code>, as indicated by the double hyphen. Notice that a single hypen is used in sub-nav to separate the two words.</p>
+				</li>
+				<li>
+					<code>.menu__item--active</code>
+					<p>This is a moditication to a <code>.menu__item</code> and is used to show an active state.</p>
+				</li>
+			</ul>
+
+		</section>
+
+		<section>
+			<h2>Common Arguments Against BEM</h2>
+			<ol>
+				<li>
+					<h3>Ugly, long class names</h3>
+					<p>This is usually the first thing that everyone complains about when first introduced to the BEM naming convention. Yes, the class names are longer, and yes, double underscores and hyphens is probably new, but the benefits far outweigh any argument about how "pretty" class names should be. In the end, class names should convey sensible meaning to any other developer that may work on the project, whether it's a new team member joining, or someone doing maintenance work years later.</p>
+				</li>
+				<li>
+					<h3>Classitis in the markup</h3>
+					<p>Another common complaint is how the HTML must now have way more classes in the markup, and that some elements will now have multiple classes on them. Only a few years ago, we strived for "clean" markup and instead relied on overly specific element selectors in our CSS (like <code>body#main #nav ul li a</code>) in order to make sure our styles were scoped properly. However, we have since learned that CSS specificity is something you want to avoid at all costs, and browsers can now parse the HTML much quicker. Even with multiple classes on every element, the magic that happens in the browser on rendering a document means that raw file size of the HTML is not an area to worry about performance. This is especially true when assets on a server can be gzipped or compressed in some way. The highly repeatable nature of the BEM class names are perfect candidates for compression by the browsers, so a heavily-classed HTML file with a smaller CSS file can render much faster than a class-free HTML document that has a very large stylesheet. This is due to the BEM classes being shorter selectors in the CSS, so the browser takes less time finding the matching elements to apply the styles too.</p>
+				</li>
+				<li>
+					<h3>OOCSS with BEM takes longer</h3>
+					<p>Bringing together the philosophies of OOCSS and BEM may be difficult to grasp at first, but once you start working with it more, it becomes second nature. You begin to think in absractions as your base building blocks, and how to develop an entire system of components instead of just coding one page at a time. You might even have to unlearn some of what we previously thought were "best practices", as Andy Hume shows in his presentation called <a href="https://speakerdeck.com/andyhume/css-for-grown-ups-maturing-best-practises-sxsw-2012">CSS for Grownups - Maturing Best Practices</a>. This is because we work in a field that is constantly changing, so that means our thought processes and workflows must adapt as well. What was a good practice years ago might be highly detrimental now.</p>
+					<p>Once you grasp the idea of OOCSS and BEM, one might argue that it is hard to style a page because the design dictates so many nuances: 8px of margin in one place, but 10px in another for a similar element. Or, these two pages have entirely different layouts. These types of things could maybe be combined to both have the same margin. Is two pixels really going to throw off the whole site?  See <a href="https://speakerdeck.com/csswizardry/normalising-designs-for-better-quality-css-1">this slideshow about normalizing designs by Harry Roberts</a> for more about thinking more in abstractions. As we work on these large websites, it is imperative to work with the UX and UI teams to create as many reusable abstractions as possible throught the site. We need to keep in mind the bigger picture: in the end, we are delivering a code base to the end users. That means we need to not design and develop each page individually, but as a system of components that make up the pages.</p>
+				</li>
+			</ol>
+		</section>
+
+		<section>
+			<h2>BEM for everything?</h2>
+            <p>When you are using BEM, though, it is important to remember that you don't need to use it for everything. </p>
+            <p><strong>Take for example:</strong></p>
+<pre class="codeSample prettyprint lang-css linenums goodCode">
+.caps { 
+    text-transform: uppercase;
+}</pre>
+            <p>This CSS would never fall into any BEM category, it's merely a standalone rule.</p>
+            <p><strong>Another example of code which isn't BEM:</strong></p>
+<pre class="codeSample prettyprint lang-css linenums goodCode">
+.site-logo {}
+</pre>
+            <p><strong>Here we have our logo; it could be BEMmed up like so:</strong></p>
+<pre class="codeSample prettyprint lang-css linenums goodCode">
+.header {}
+.header__logo {}</pre>
+            <p>But that is unecessary. </p>
+            <p>The trick with BEM is knowing when something falls into a relevant category. Just because something happens to live inside a block it doesn't always mean is is actually a BEM element. An element's scope can start in any context, so you need to make sure you only apply BEM as far as you need to. Another example:</p>
+<pre class="codeSample prettyprint lang-css linenums goodCode">
+&lt;div class="content"&gt;
+	&lt;h1 class="content__headline"&gt;Lorem ipsum dolor...&lt;/h1&gt;
+&lt;/div&gt;
+</pre>
+            <p>Here we might be able to just call the second class .headline; it depends on if it is styled that way <strong>because</strong> it's in .content, or whether it just <em>happens</em> to live in .content. If it is the latter then we <span class="red">do not need BEM</span>.</p>
+            <p>Everything is potentially open to moving into BEM territory, though. Taking our <code>.site-logo</code> example again, imagine that we want to have a festive version of the logo for our Christmassy site design. We could have:</p>
+<pre class="codeSample prettyprint lang-css linenums goodCode">
+.site-logo {}
+.site-logo--xmas {}</pre>
+            <p>We can quickly build variations of things by using the -- modifier notation.</p>
+            <p>One of the hardest parts of BEM is deciding when to start and stop scope, and when (or not) to use it. It's a case of "you'll just know when you know".</p>
+            <p>BEM may look a little odd at first, but it is a hugely valuable addition to the front-end developer's toolbox, no matter the project.</p>
+            <p>Read more about BEM and when to use (or not use) it in this <a href="http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/">article by Harry Roberts</a>.</p>
+		</section>
+
+	</article>
+</body>
+</html>

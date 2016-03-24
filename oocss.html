@@ -1,0 +1,512 @@
+
+
+
+<!DOCTYPE html>
+<!-- Define site name -->
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8"/>
+		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Set title using sitename & pagetitle (defined in page HTML) -->
+		<title>HTML Framework : Object Oriented CSS</title>
+
+		
+	</head>
+
+<body?
+
+
+	
+<section>	
+<h1>Object-Oriented CSS (OOCSS)</h1>
+<h2 id="what-is">What is OOCSS?</h2>
+<p>
+	Object Oriented CSS is a new way of thinking about how we author
+	CSS files to make them small, efficient, flexible, and maintainable.
+	The objective of OOCSS is to recognize patterns within the design, and
+	abstract that pattern. By doing this, we reuse bits of CSS and
+	avoid repeating ourselves unnecessarily within a style sheet.</p>
+    
+<p>A classic example of this is the  horizontal list. Between navigation, breadcrumbs, 
+    and menus, most sites tend to have at least one or two horizontal lists. 
+    Normally, you would create classes for each list, and set the CSS property of
+	<code>display: inline-block;</code>, or <code>float: left;</code>
+	for each list. Why repeat this in our CSS? What
+	happens when we need another horizontal list? The issue 
+    compounds each time another version of a list is added. 
+    OOCSS (built on the <abbr title="Dont Repeat Yourself">DRY</abbr> 
+    (Don't Repeat Yourself) principle), provides a method of eliminating  
+    unnecessary code.</p>
+
+<h2 id="how-to-use">How to Use OOCSS</h2>
+<p>
+	Getting started with OOCSS doesn't require learning any new CSS or
+	HTML, but rather learning to think differently in how one crafts their
+	style sheets.
+</p>
+    
+<p>
+    The first step is to look at a page, whether it is a 
+	wireframe, design comp, or existing web page, and recognize the patterns that
+	are being shared amongst different elements. Perhaps there are two or
+	three colors, a box with an image on the left and content on the right,
+	a border around different boxed elements, multiple horizontal lists,
+	and more. Once you recognize these patterns, it is easy to see how a
+	<code>property: value;</code>
+	pair would be used multiple times on different elements, when in effect
+	you are just repeating yourself unnecessarily. CSS is meant to cascade
+	and be reusable, and the OOCSS methodology embraces that notion to
+	leverage it the way it was supposed to be.
+ </p>
+
+<p>
+    Once we recognize these patterns, the next step is to abstract 
+    these <code>property: value;</code> pairs into their own class. 
+    This is called your abstraction, or sometimes referred to as a base 
+    object or module. Optimallly, an abstraction should be basic and free of 
+    design-related styling, so that it can be <em>extended</em> with appended classes.
+	This makes for extremely reusable code that is much easier to maintain
+	in the future. It also allows for quick and easy reskinning or theming
+	of a page without affecting other parts of a page.
+</p>
+
+<p>    
+    To make better sense of this, we can make an analogy of objects and Legos. 
+    Imagine the different Lego shapes and their variations, but imagine them without
+	color for a moment. These are analogous to base objects, or abstractions. They 
+    can be assembled in different ways, but contain the basic building blocks for 
+    limitless creations. Now, reintroduce your colors and variations of those Legos, 
+    which are like the extensions, or appending classes, that can be used to change 
+    the entire look and feel of a project.
+</p>
+
+<p>    
+    A practical example is how 
+	<a href="http://twitter.github.com/bootstrap/base-css.html#buttons">Twitter
+	Bootstrap</a> handles their button styling. They have a grey button called
+	<code>.btn</code>
+	as their base object, which sets the rudimentary styling like padding,
+	a simple background, the borders, text-shadow, and a little bit more.
+	Then, you can <em>extend</em> the look of that base object button by
+	adding supplementary appended classes to
+	<code>.btn</code>
+	to change both color and size. For example, you can have
+	<code>&lt;button class="btn btn-primary btn-large"&gt;</code>
+	, where the last two classes extended the first class. The first class
+	set the base styling, the second class changed the color scheme, and
+	the third changed the size. By leaving the base object mostly
+	design-agnostic, it was able to take on these extensions without having
+	to overwrite, or even worse, over-qualify it with more specificity to
+	change the entire look and feel of it. 
+</p>
+
+<p>        
+    Between the 6 different color extensions and 3 different size extensions 
+    available in Bootstrap, you end up with 28 different potential results (base 
+    color + 6 extensions &times; Base size + 3 extensions). This is only 10 classes, as opposed
+	to 28 classes had they been all written out separately. Think about how
+	much file size was saved by reusing code instead of repeating it for
+	each of the 28 different rulesets. This multi-class pattern of a base
+	abstraction plus extensions is where OOCSS really shines.
+</p>
+
+<h2 id="habits">Breaking Good Habits</h2>
+
+<p>
+	By using OOCSS, we need to shift our thinking around what was used to
+	be considered "best practices" in CSS. As HTML and CSS have progressed
+	throughout the years, we have adopted some ideas around what makes for
+	good and bad code, but when is the last time we really stepped back and
+	analyzed <em>why</em> or <em>what</em> makes something good or bad?
+</p>
+
+<p>    	
+    Lately, we considered good habits to be avoiding using a lot of
+	classes, using the least amount of markup possible to acheive
+	something, and handcrafting our CSS. Conversely, the bad habits were
+	"classitis", unsemantic class names, and being too verbose with markup.
+	It may take some time to change our mindset, but these methods have now been proven 
+    to actually be less efficient, and there is now proof to debunk these bad habits.
+</p>
+
+<ol>
+	<li><h3>Avoiding Extra Classes/Classitis</h3>
+		<p>
+			Contrary to popular belief, being generous with your classing
+			everything can result in less markup and smaller CSS filesize. It
+			seems counterintuitive, but if done properly (using OOCSS), file size
+			can dramatically decrease even though there are more classes
+			declared. The difference comes in when you are applying the 
+			<abbr title="Dont Repeat Yourself">DRY</abbr> approach, and only state
+			<code>property: value;</code>
+			pairs a minimal number of times. So now, instead of a value being
+			repeated numerous times in a stylesheet, it is only written once, and
+			shared via class names. 
+        </p>
+        <p>    
+            A memorable statistic that came out of 
+			<a 	href="http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/" title="Media Object by Nicole Sullivan">Nicole Sullivan's research</a> 
+			is how Facebook repeated the hex code for "Facebook Blue" a
+			total of 261 times, in stylesheets that were Megabytes in size. If
+			done correctly using OOCSS, there is no reason that number could have
+			been less than 10. They may need to define it as a
+			<code>background-color:;</code>
+			,
+			<code>color:;</code>
+			, and
+			<code>border:;</code>
+			, but really not much more than that if at all. By embracing the
+			cascade and letting CSS do the heavy lifting, they could have easily
+			reduced their file size by at least 200 lines of code that were just
+			stating the same hex value. After Nicole Sullivan and her research
+			partners recoded a sample homepage of Facebook using abstractions and
+			extensions, they were able to reduce the file size of the markup by
+			almost 50% and the CSS by around 20%. In the end, there were actually
+			more class names than before, but there were no styles that were
+			based on an element and its position in the markup.</p>
+        <p class="columize">    
+            By not styling on
+			an element, all specificity wars were eliminated, and the CSS became
+			much more maintainable, flexible, extensible, and predictible, all
+			while being much smaller in filesize.
+		</p></li>
+	<li><h3>Unsemantic Class Naming</h3>
+		<p>
+			When it comes to naming a class, it doesn't matter if it is semantic or not.
+			Class names are primarily used for
+			hooks in CSS and JS, and make sense only to us developers. Of course,
+			our markup should be as semantic as possible, because it will get
+			interpreted by not only other developers, but by search engines,
+			accessibility devices, and more. When it comes to classes, it only
+			makes sense to talk about them in terms of <em>sensible</em> and <em>insensible</em>.
+			They must make sense to us as a developer, and not need an
+			explanation of what they mean. 
+        </p>
+        
+        <p>    
+            Refer to <a href="/css-best-practices.shtml">CSS Best Practices</a> 
+			for more on naming conventions. To summarize, it is best to name a class based
+			on what it does, not what it looks like, where it is located, or other contextual-based
+			names.
+		</p>
+	</li>
+	<li><h3>Using IDs in CSS</h3>
+		<p>Using IDs in a stylesheet should be avoided at all costs. They may be used in markup to serve as a hook for Javascript, but there is definitely no need for them to be used as a styling hook. They have no advantage over using a class; anything that can be styled with an ID can be done with a class.</p> 
+		<p>The problem with using them in CSS is because they go against the very nature of CSS itself: they are not reusable, and they introduce a high level of specificity, not unlike using <code>!important</code>. It is pretty hard to qualify a selector to be stronger than an ID, which means you will just be introducing highly over-qualified and long selector chains that go all the way up the DOM tree just to be stronger than an ID. Instead, why not use a class, which could then be reused later on, and also make your stylesheet more maintainable and extensible? By using a class over an ID, you are making your own and everyone else's lives easier in the future by avoiding the dreaded "Specificity Wars".</p>
+	</li> 
+</ol>
+
+<h2 id="together">Putting It All Together</h2>
+<p>	The main goal of OOCSS is to achieve the highest code quality possible. Before, that meant ensuring correctness, reliability, reusability, performance, testability, and extensibility. Now, with OOCSS, those all still apply, but come naturally when writing CSS with optimization for change in mind.</p> 
+	<p>That means, while crafting your CSS, you anticipate maintenance later on, whether by you or another developer. If you do this correctly, all of those others will fall in line. 
+</p>
+
+<h3>Tips &amp; Tricks</h3>
+<ul>
+	<li>Write CSS that has a 1:Many relationship with HTML elements. This ensures flexibility and that you are keeping your code <abbr title="Dont Repeat Yourself">DRY</abbr>.</li>
+	<li>Write rulesets in order of specificity. This means instead of the order they occur in the markup, or just tacking on lines of code at the end of the file, that you order them by inheritance strength. 
+		Ideally, the base objects/abstractions come first, then extensions, and then various other classes. Subsequent rulesets should only inherit, not undo, something from higher up in the stylesheet (with minor exceptions).</li>
+	<li>Avoid over-qualifying your selectors by putting an element before the class (e.g. <code>ul.nav</code> instead of just <code>.nav</code>). It increases specificity, limits reusability, and is less efficient. Unlike us, CSS is processed by browsers
+	from right to left, so it will look for all <code>.nav</code> and then for one inside of a <code>ul</code>, which takes much longer than just <code>.nav</code>.</li>
+	<li>Avoid unnecessary nesting and chaining of selectors in the stylesheet. Again, this will increase specificity, and becomes less efficient because it takes longer for the browser to parse. Also, it becomes less portable because it depends on HTML structure. The goal is to make selectors independent of structure so they can be reused elsewhere.</li> 
+</ul>
+
+<h3>Understanding the Layers of CSS</h3>
+<p>Andy Hume gave a presentation on <a href="https://speakerdeck.com/u/andyhume/p/css-for-grown-ups-maturing-best-practises">maturing best practices</a> in which he describes how CSS actually works in different layers. To create good OOCSS code, he explains how 
+	abstractions and extensions should be written in a way that only affects one layer at a time, and provides a few examples of how it works. The four layers are the <strong>HTML Document</strong>, <strong>Base</strong>, <strong>Module</strong>, and <strong>Layout</strong>.
+	If done correctly, what this essentially does is separate content and presentation.
+</p>
+
+		<h4>Example of Layers of CSS</h4>
+<div class="row-fluid">
+	<div class="span6">
+		<p>For this example, let's assume we have a module on our page for a promotional feature. We will call it <code>.promo-box</code> and give it some basic styling. Right now, the styles we have are only affecting the Module itself, 
+		and not "bleeding" out and being inherited by anything else, since they don't have the same class.</p>
+		<p>Now, let's assume you want to style the <code>h3</code> inside of the <code>.promo-box</code>. As the code on line 6 illustrates, it is pretty straightforward: We can just target the <code>h3</code> inside of the <code>.promo-box</code> module. However, by chaining these two selectors together,
+			we have now added higher specificity, less portability, and dependance on code structure for this to work. By doing this, we are now affecting the module (by declaring <code>.promo-box</code>) and the document (by declaring <code>h3</code>).</p>
+		<p>In the future, what happens if we need to added an <code>h4</code> to the <code>.promo-box</code>? Traditionally we would add a new selector to our code (lines 11 - 12), hopefully avoiding some redundancy by chaining the selectors. This does not, however, simplify our code, but rather continues to bloat our CSS with more selectors, resulting in more long-term maintenance issues.</p>
+		<p>To avoid these types of specific contextual selectors, we can create a class which can be added to any <code>hN</code> element (or any element for that matter). Yes, it means adding more classes in the markup, but it lowers the specificity of the selectors and makes the style more portable. On line 17, you can see the newly created class.</p>
+		</div>
+		<div class="span6">
+<figure>
+	<pre class="codeSample prettyprint lang-css linenums">
+.promo-box { /* affects only MODULE layer */
+    color: #333;
+    background: #ddd;
+}
+
+.promo-box h3 { /* now affects both MODULE &amp; Document (h3's) */
+    font-size: 1.2em;
+    ...
+}
+
+.promo-box h3,
+.promo-box h4 {
+    font-size: 1.2em;
+    ...
+}
+
+.promo-box-h { /* only affects MODULE! */
+    font-size: 1.2em;
+    ...
+}</pre>
+</figure>
+</div>
+</div>
+</section>
+
+<hr />
+
+<section>
+<h1>Examples of OOCSS</h1>
+<h2 id="record-set">The Record Set Abstraction</h2>
+<div class="row-fluid">
+	<div class="span7">
+				<p>
+			<a href="http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/" title="Media Object by Nicole Sullivan">Nicole Sullivan pioneered</a> 
+			one of the most useful abstractions, and kickstarted the
+			whole OOCSS approach with her work. After analyzing Facebook, she
+			realized that the UI layer followed a pretty basic pattern with an
+			image or icon on the left, followed by some text or other content on
+			the right. By abstracting this pattern, she was able to write just a
+			few lines of code that would allow it to be infinitely nestable, have
+			multiple configurations, and it must clearfix. It should also be able
+			to have different widths, have no styling associated besides layout,
+			and be agnostic about the content inside it. By doing so, hundreds of
+			lines of repeated code was eliminated, and saw a file size reduction
+			of close to 50%.
+		</p>
+		
+
+		<p>Since we have a similar set up &#8212; image on the left, user's name on the right, and supplementary content &#8212; We have built upon this idea and have created the "Record Set" abstraction.
+        </p>
+
+		<p>
+			The abstraction requires just one wrapping element with the class
+			<code>.record</code> applied to it. Inside is the optional content section
+			<code>.record-body</code>. In the CSS, first everything gets a little
+			padding and margin, which may change according to each project. Next,
+			we create some clearfixing properties using overflow, and some hacks
+			for Internet Explorer. Finally, the image wrapper is floated left and
+			given some margin on the right. This requires a class of
+			<code>.img</code>
+			on the wrapper, which will usually be a link.
+		</p>
+</div><!--  /.span7 -->
+
+<!-- div class="span5" -->
+	<figure class="span5">
+<pre class="codeSample prettyprint lang-css linenums ">
+.record {
+  margin: 5px 0;
+  padding: 10px;
+}
+.record,
+.record-body {
+  overflow: hidden;
+  /* To make IE play nice */
+  _overflow: visible;
+  zoom: 1; 
+}
+.record .img {
+  float: left;
+  margin-right: 10px;
+}
+.record .img img {
+  display: block;
+}
+</pre>
+
+<pre class="codeSample prettyprint lang-html linenums ">
+&lt;!-- Basic Structure 
+for Record Set --&gt;
+&lt;div class="record"&gt;
+  &lt;a href="" class="img"&gt;
+	&lt;img src="" alt=""&gt;
+  &lt;/a&gt;
+  &lt;div class="record-body"&gt;
+  ...
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+</figure>
+<!--	</div> /.span5 -->
+</div><!-- /.row-fluid -->
+
+<p>Below is a basic abstraction, with a few extensions to show its
+	flexibility. The hover effect and borders are just for illustrative
+	purposes to demonstrate the levels of nesting. For the abstraction
+	itself, you want to leave everything pretty basic, and not tie any
+	styling to it. This allows for maximum reusability and potential for
+	different extensions.</p>
+<figure>	
+<div class="record record-border hover">	
+        <a href="#" class="img" title="Profile Image">
+            <img src="img/jakob.jpg" alt="me" class="img-largest" />
+        </a>
+        <div class="record-body">
+            <h4>Jakob Nielsen  </h4>
+            <p>Large block of text could go here. It could be a comment, an update, or some type of data coming in.</p>
+            <div class="record record-border hover">
+                <ul class="horizontal-list">
+                    <li><a class="list-action" title="Action Item"><i class="icon-wrench"></i>Link 1</a></li>
+                    <li><a class="list-action" title="Action Item"><i class="icon-heart"></i>Link 2</a></li>
+                    <li><a class="list-action" title="Action Item"><i class="icon-cog"></i>Link 3</a></li>
+                </ul>
+            </div>
+            <div class="record record-border hover">
+                <a href="#" class="img" title="Profile Image">
+                    <img src="img/jakob.jpg" alt="me" class="img-medium" />
+                </a>
+                <div class="record-body">
+                    <h5>Jakob Nielsen</h5>  
+                    <p>Large block of text could go here. It could be a comment, an update, or some type of data coming in.</p>
+                </div>
+            </div>
+            <div class="record record-border hover">
+                <a href="#" class="img" title="Profile Image">
+                    <img src="img/jakob.jpg" alt="me" class="img-medium" />
+                </a>
+                <div class="record-body">
+                    <h5>Jakob Nielsen</h5>
+                    <p>Large block of text could go here. It could be a comment, an update, or some type of data coming in.</p>
+                </div>
+            </div>
+            <div class="record record-border hover">
+                <a href="#" class="img" title="Profile Image">
+                    <img src="img/jakob.jpg" alt="me" class="img-medium" />
+                </a>
+                <div class="record-body">
+                    <h6>Jakob Nielsen</h6>
+                    <p>Large block of text could go here. It could be a comment, an update, or some type of data coming in.</p>
+                    <div class="record record-border hover">
+		                <ul class="horizontal-list">
+		                    <li><a class="list-action" title="Action Item"><i class="icon-wrench"></i>Link 1</a></li>
+		                    <li><a class="list-action" title="Action Item"><i class="icon-heart"></i>Link 2</a></li>
+		                    <li><a class="list-action" title="Action Item"><i class="icon-cog"></i>Link 3</a></li>
+		                </ul>
+		            </div>
+                    <div class="record record-border hover">
+                        <a href="#" class="img imgExt" title="Profile Image">
+                            <img src="img/jakob.jpg" alt="me" class="img-smallest" />
+                        </a>
+                        <div class="record-body">
+                            <h6>Jakob Nielsen</h6>
+                            <p>Large block of text could go here. It could be a comment, an update, or some type of data coming in.</p>
+                        </div>
+                    </div>
+                    <div class="record record-border hover">
+                        <a href="#" class="img" title="Profile Image">
+                            <img src="img/jakob.jpg" alt="me" class="img-smallest" />
+                        </a>
+                        <div class="record-body">
+                            <h6>Jakob Nielsen</h6>
+                            <p>Large block of text could go here. It could be a comment, an update, or some type of data coming in.</p> 
+                            <div class="record record-border hover">
+                                <a href="#" class="img imgExt" title="Profile Image">
+                                    <img src="img/jakob.jpg" alt="me" class="img-smallest" />
+                                </a>
+                                <div class="record-body">
+                                    <h6>Jakob Nielsen</h6>
+                                    <p>Large block of text could go here. It could be a comment, an update, or some type of data coming in.</p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</figure>    
+
+    <hr />
+    
+
+
+    <h2 id="pragmatic">Pragmatic Font-Sizing Abstraction</h2>
+    <h3>Double Stranded Heading Hierarchy</h3> 
+
+		<p>In addition to standard heading styles, we have also abstracted the styles. This provides us a simply and flexible way of using semantically correct headings while styling them as needed.</p>
+<div class="row-fluid well">
+	<div class="span6">
+		<figure>
+		   <h1 class="alpha">.alpha</h1>
+           <h1 class="beta">.beta</h1>
+           <h1 class="gamma">.gamma</h1>
+           <h1 class="delta">.delta</h1>
+           <h1 class="epsilon">.epsilon</h1>
+           <h1 class="zeta">.zeta</h1>
+<figcaption>These are all <code>H1</code>s</figcaption>
+		</figure>
+      </div>
+<figure class="span6">
+<pre class="codeSample prettyprint lang-css linenums">
+/* Double Stranded Heading Hierarchy */
+/* HTML */
+&lt;h1 class="alpha"&gt;.alpha&lt;/h1&gt;
+&lt;h1 class="beta"&gt;.beta&lt;/h1&gt;
+&lt;h1 class="gamma"&gt;.gamma&lt;/h1&gt;
+&lt;h1 class="delta"&gt;.delta&lt;/h1&gt;
+&lt;h1 class="epsilon"&gt;.epsilon&lt;/h1&gt;
+&lt;h1 class="zeta"&gt;.zeta&lt;/h1&gt;
+
+/* CSS */
+h1, .alpha   { font-size: 32px; }
+h2, .beta    { font-size: 24px; }
+h3, .gamma   { font-size: 20px; }
+h4, .delta   { font-size: 18px; }
+h5, .epsilon { font-size: 16px; }
+h6, .zeta    { font-size: 16px; }</pre>
+</figure>
+</div>
+
+
+    <h3>Body Text, Small Text, &amp; Giant Text</h3>
+
+    		<p>In addition to headings, we want to set a typographic scale with the rest of our text, including normal body text, smaller text, and in some cases, 
+    		extremely large text for banners or mastheads. For the body text, it should be set in the <code>html</code> tag and inherited for all elements like 
+    		<code>p</code>, <code>li</code>, <code>table</code>, and so on. 16px is widely regarded as the best size to set the base size at for use on the web.</p>
+    		<p><a href="http://csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/" title="Pragmatic Font Sizing by Harry Roberts">Harry Roberts suggests in this article</a> using metric system prefixes to distinguish
+    		between anything that is above or below the base typographic scale for headings and body text. For smaller text, instead of using <code>small</code>, it is best to abstract one or multiple classes to make smaller text sizes. 
+    		We can also build on this idea for super large text sizes too. Some examples are in the following code.    		
+    		</p>
+    		<p>By abstracting font sizes, it also facilitates a vertical rhythm, achieved easily with consistent line heights and bottom margins in multiples 
+    		of a <a href="http://coding.smashingmagazine.com/2011/03/14/technical-web-typography-guidelines-and-techniques/#tt-magic-number" title="Technical Web Typography">magic number</a>. The magic number
+    		is typically the base font size multiplied by line-height. Assuming a <code>line-height</code> of 1.5 and a base font size of 16, the magic number here is 24 (16 &times; 1.5 = 24). All <code>margin-bottom</code>s
+    		can use this number, and line-height can be calculated based from this number as well, as shown in the code example.</p>
+
+<div class="row-fluid">
+<figure class="span3 offset1 pull-right">
+<p class="giga">giga</p>
+<p class="mega">mega</p>
+<p class="kilo">kilo</p>
+<p class="milli">milli</p>
+</figure>
+
+<figure class="span8">
+    	<pre class="codeSample prettyprint lang-css linenums">
+/* These handle massive type, for less frequently occuring bits of text (e.g. in mastheads and banners). */
+.giga {
+    font-size: 80px;
+    line-height: 1.2;    /* 96px */
+}
+.mega {
+    font-size: 64px;
+    line-height: 1.125;  /* 72px */
+}
+.kilo {
+    font-size: 48px;
+    line-height: 1;      /* 48px */
+}
+/* Smaller-than-body-copy sizes here. */
+.milli {
+    font-size: 12px;
+    line-height: 2;      /* 24px */
+}		</pre>
+</figure>
+</div><!-- /.row-fluid -->
+</body>
+</html>

@@ -1,0 +1,82 @@
+Working with preprocessors:
+	- downfalls (nesting)
+	- when to nest (subclassing, hover states, etc)
+	- ordering (mixins last, etc)
+	- variables
+	- mixins/vendor prefixes
+	- writing for maintenance and performance
+	- sass style guide method of naming variables and using them 
+
+
+
+
+Writing good selectors:
+	- css specificity issues
+	- increase selector efficiency by not over qualifying
+	- reduce location dependency
+	- increase portability
+	- single responsibility principle
+	- reduce chances of selector breakage
+	- decrease specificity
+	- depth of applicability 
+	- no styling of unclassed elements 
+	- no ids
+
+
+
+BEM
+	- show relationships without tying to html structure (parent child)
+	- think in objects
+	- why to use BEM over others
+	- separate structure from skin (http://csswizardry.com/2012/04/the-single-responsibility-principle-applied-to-css/)
+	- examples
+	- css specificity wins
+
+
+
+
+
+http://nicolasgallagher.com/about-html-semantics-front-end-architecture/
+http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+http://www.integralist.co.uk/posts/maintainable-css-with-bem/
+http://thesassway.com/advanced/modular-css-naming-conventions
+http://coding.smashingmagazine.com/2012/04/16/a-new-front-end-methodology-bem/
+http://smacss.com/
+
+
+
+BEM selector names are a way to show relationships between the DOM elements 
+they are styling. 
+
+
+
+
+
+SASS/LESS Nesting Downfalls
+- better to have class in html and have two classes in your css than to not have a class in the html and nest your selectors using a preprocessor. By nesting you end up with over qualified selectors, and the goal is to keep everything as simple as possible. Upon compilation the preprocessors create maintenance issues by taking the nested selectors and outputting selectors that are at least two levels deep, and potentially multiple levels deep and making it very simple to do so. 
+
+
+CSS Specificity:
+http://css-tricks.com/specifics-on-css-specificity/
+http://csswizardry.com/2012/05/keep-your-css-selectors-short/
+http://smacss.com/book/applicability
+
+
+
+
+
+List Items:
+Give the parent element a unique class name not tied to content or context. Instead, use a more abstract name in case it may be used elsewhere later. For each of the children, add a class that is name the same as the parent, followed by a double underscore and another descriptive name, in this case it is an menu item so we will use the word item. Now, to take it one step further, if we had an active state, a special treatment, or some other modification to that menu item, we can simply add a modifier to the class name by adding two hyphens and the name of the modification, such as "active" or "alt" (for alternative).  
+
+
+	UL - menu-list
+	LI - menu-list__item
+	active	- menu-list__item--active
+
+
+
+
+
+
+
+

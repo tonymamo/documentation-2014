@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!-- Define site name -->
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8"/>
+		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Set title using sitename & pagetitle (defined in page HTML) -->
+		<title>HTML Framework : CSS Preprocessors</title>
+
+	</head>
+
+<body>
+            <h1 class="pageTitle">CSS Preprocessors</h1>
+        <p>A CSS Preprocessor is a "stylesheet language" that allows the programmer to utilize some advanced mechanisms such as variables, nesting, and mixins to make their CSS "smarter". The source files are useless to the browser until they are compiled into CSS, at which point there are many options to concatenate and minify to reduce overall file size.</p>
+
+        <p>There are a growing number of CSS preprocessors out there with the two main contenders being Sass and Less. As long as you have a decent understanding of CSS, the basics of working with these preprocessors can be learned rather quickly. The syntax and concepts are explained thoroughly on their respective websites so rather than copy or attempt to rewrite them here we will instead link you to the <a href="http://lesscss.org/features/" target="_blank">Less Features</a> and <a href="http://sass-lang.com/guide" target="_blank">Sass Basics</a> pages. Once you feel comfortable with the basics of CSS Preprocessing, continue reading this page to learn the iDS best practices for using these technologies.</p>
+
+        <h2>Sass versus Less</h2>
+        <p>The major differences between these two "stylesheet languages" have already been talked about in other places, like <a href="http://css-tricks.com/sass-vs-less/" target="_blank">this article</a> on Chris Coyier's CSS-tricks.com. From a project architecture point of view, the most important difference between the two is that Sass is Ruby-based and Less is JavaScript-based. Some projects here at iDS utilize the <abbr title="Adobe Experience Manager">AEM</abbr> (formerly CQ5) Java-based <abbr title="content management system">CMS</abbr>. AEM has built-in support for Less so you don't have to worry about hooking up a compiler. For this reason, all of the examples on this page will use Less as the preferred language for examples.</p>
+
+        <p><em>A quick note about AEM and Less versions:</em> different versions of AEM utilize different versions of Less so make sure you code accordingly. For example, AEM 5.6.0 uses Less 1.1.2 while AEM 5.6.1 uses Less 1.3.3. Check out these helpful links for reference:</p>
+        <ul>
+            <li><a href="https://rubygems.org/gems/less/versions" target="_blank">All versions of Less, available for download</a></li>
+            <li><a href="https://github.com/less/less.js/blob/master/CHANGELOG.md" target="_blank">Less Changelog, view the differences between versions</a></li>
+        </ul>
+
+        <h2>Sass and <abbr title="Sassy CSS">SCSS</abbr></h2>
+        <p>Sass actually has two syntaxes available with the more common one being SCSS. This syntax extends CSS which means you write it exactly the same way as CSS but it also adds some more features on top of the ones already available. The Sass syntax provides a shorthand way to write CSS. Rather than using brackets and semicolons to assign styles to a selected element, indentation and newlines are used instead. Simply append either <code>.scss</code> or <code>.sass</code> to the end of your Sass file to tell the compiler which syntax the file is using. Check out the <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#syntax" target="_blank">Sass syntax reference</a> to learn more about the implementation and differences between the two.</p>
+
+        <p>Sass also allows you to utilize partials by prepending an underscore to your filename. Partials do not get compiled into a normal CSS file, but instead are used to store styles that can be imported into other files. Check out the <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html#partials" target="_blank">Sass partials reference</a> to learn more about partials.</p>
+
+        <h2>File Architecture</h2>
+        <p>Break up styles into separate stylesheets as much as possible and concatenate them together into one main file by using the <code>@import path/filename.less;</code> statement. Rather than having a super large "global.less" file, aim for things like "carousel.less", "forms.less", "footer-nav.less", etc. By utilizing the <a href="block-element-modifier.shtml">BEM naming convention</a>, it's easy to extract the block elements into their own stylesheet files. The two sections below show how the source Less files and the import file should look:</p>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <strong>These source Less files...</strong>
+                <pre class="codeSample prettyprint">
+/* less/source/global.less */
+body { background-color: @orange; }</pre>
+                <pre class="codeSample prettyprint">
+/* less/source/footer-nav.less */
+footer {
+    bottom: 0;
+    position: fixed;
+}</pre>
+                <pre class="codeSample prettyprint">
+/* less/source/media-queries.less */
+@media (max-width: 767px) {
+body { background-color: @blue; }
+}</pre>
+            </div>
+            <div class="span6">
+                <strong>...concatenate into this Less file.</strong>
+                <pre class="codeSample prettyprint">
+/* less/core.less */
+@import "source/global.less";
+@import "source/footer-nav.less";
+@import "source/media-queries.less";</pre>
+            </div>
+        </div>
+
+        <h2>CSS Preprocessor Compilers</h2>
+        <p>The compiler will read the code, process it, and output usable CSS. The basic idea here is to configure the compiler to receive the preprocessed code as input, then specify where it should output the processed code. The processed files are the ones that will be referenced in the HTML.</p>
+
+        <p>If you are working within AEM, no special configuration is needed. Simply include Less files in the /etc/designs/clientlibs/ folder like you would CSS files. List them in the css.txt file, just like you would for you CSS files, and AEM will take care of the compilation. Outside of AEM, you will need to set up a local workflow to handle all concatenation, compilation, and minification of code. Here are some various apps and plugins to handle this:</p>
+        <ul>
+            <li><a href="http://compass-style.org/" target="_blank">Compass</a> (Mac) / <a href="http://mhs.github.io/scout-app/" target="_blank">Scout</a> (Mac/Win) &ndash; Sass compilers</li>
+            <li><a href="http://koala-app.com/" target="_blank">Koala</a> (Mac/Win) &ndash; compiler of Less, Sass, plus a lot more</li>
+            <li><a href="http://incident57.com/codekit/" target="_blank">Codekit</a> (Mac) &ndash; compiler of Less, Sass, plus a lot more (note: it's proprietary, costs $29 but there is a trial version)</li>
+            <li><a href="https://www.npmjs.org/package/grunt-contrib-less" target="_blank">grunt-contrib-less</a> &ndash; Less compiler plugin for Grunt.js</li>
+            <li><a href="https://www.npmjs.org/package/grunt-contrib-sass" target="_blank">grunt-contrib-sass</a> &ndash; Sass compiler plugin for Grunt.js</li>
+            <li><a href="https://www.npmjs.org/package/gulp-less" target="_blank">gulp-less</a> &ndash; Less compiler plugin for Gulp.js</li>
+            <li><a href="https://www.npmjs.org/package/gulp-sass" target="_blank">gulp-sass</a> &ndash; Sass compiler plugin for Gulp.js</li>
+            <li><a href="http://mashable.com/2013/06/11/sass-compass-tools/" target="_blank">25 Essential Sass and Compass Tools</a> &ndash; a large list of Sass tools</li>
+        </ul>
+
+        <h2>Task Automation</h2>
+        <p>There are some really great new technologies that with minimal configuration can automate your workflow as a developer. These are definitely worth mentioning in a separate page (<a href="task-automation.shtml">coming soon!</a>). These task automated workflows are <strong>highly</strong> recommended and they can completely take care of your Less/Sass concatenation/compilation/minification automatically. If you want to look into these on your own, be sure to look into <a href="http://gruntjs.com/" target="_blank">Grunt.js</a> and <a href="http://gulpjs.com/" target="_blank">Gulp.js</a>.</p>
+
+        <h2>Naming Convention</h2>
+        <p>The ability to nest selectors can make our stylesheets more concise and easier to read. However, it can also be easy to get carried away and nest things unnecessarily. Remember from our <a href="css-best-practices.shtml">CSS Best Practices</a> page that selectors should not be overqualified. The best practice is to use the fewest amount of selectors as possible. Properly applying the <a href="block-element-modifier.shtml">BEM naming convention</a> to your favorite CSS preprocessor is one way to maximize your efficiency.</p>
+
+        <p>Imagine you are styling an unordered list like the one shown below. The first set of Less/CSS represents a primitive way to style using the nesting method. The second set refactors the first set and the result is a more semantic styling that is actually easier to read, and much easier to override. Also take note of how the <code>&amp;.list__item--last {</code> changed to <code>&amp;--last {</code> which eliminated an entire class from our compiled CSS and made it less specific and much easier to understand and override.</p>
+
+        <pre class="codeSample prettyprint lang-html linenums">
+&lt;!-- sample HTML --&gt;
+&lt;ul class="list"&gt;
+    &lt;li class="list__item"&gt;Item 1&lt;/li&gt;
+    &lt;li class="list__item"&gt;Item 2&lt;/li&gt;
+    &lt;li class="list__item list__item--last"&gt;Item 3&lt;/li&gt;
+&lt;/ul&gt;</pre>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <p>This (ok) Less code:</p>
+                <pre class="codeSample prettyprint lang-css linenums">
+.list {
+    margin: 0;
+
+    .list__item {
+        margin-right: 20px;
+
+        &.list__item--last {
+            margin-right: 0;
+        }
+    }
+}</pre>
+                <p>Compiles to this CSS code:</p>
+                <pre class="codeSample prettyprint lang-css linenums">
+.list {
+    margin: 0;
+}
+.list .list__item {
+    margin-right: 20px;
+}
+.list .list__item.list__item--last {
+    margin-right: 0;
+} /* look at all those selectors, boo! :-( */</pre>
+            </div>
+            <div class="span6">
+                <p>This (better) Less code:</p>
+                <pre class="codeSample prettyprint lang-css linenums">
+.list {
+    margin: 0;
+}
+.list__item {
+    margin-right: 20px;
+
+    &--last {
+        margin-right: 0;
+    }
+}
+ </pre>
+                <p>Compiles to this CSS code:</p>
+                <pre class="codeSample prettyprint lang-css linenums">
+.list {
+    margin: 0;
+}
+.list__item {
+    margin-right: 20px;
+}
+.list__item--last {
+    margin-right: 0;
+} /* now that's some clean CSS! :-) */</pre>
+            </div>
+        </div>
+
+        <h2>Media Queries</h2>
+        <p>In the interest of keeping projects organized, create a separate file to store all styles associated with media queries. Like the z-index trick mentioned later in this page, this is mainly a structural organization that helps the programmer(s) understand project-wide styles at a glance.</p>
+
+        <h2>Mixins and Variables</h2>
+        <p>Another best practice is to create a separate file to store mixins and variables. Variables and operations (<a href="http://lesscss.org/features/#features-overview-feature-operations" target="_blank">Less Operations</a> &ndash; <a href="http://sass-lang.com/guide#topic-8" target="_blank">Sass Operators</a>) can make <a href="rwd-approach.shtml"><abbr title="Responsive Web Design">RWD</abbr></a> easier to achieve. For example, if you wanted to have three <code>&lt;div class="foo"&gt;</code>'s floating in a row and each take up 1/3 of the screen width, instead of doing something like <code>.foo { width: 33.33%; }</code> which might leave you with some weird spacing issues, you can simply do <code>.foo { width: 100% / 3; }</code> and your CSS preprocessor figures out the rest.</p>
+
+        <p>Here are some ideas of what to include in this file:</p>
+        <ul>
+            <li>font variables &ndash; font families, sizes, line-heights, colors, etc.</li>
+            <li>project/brand specific styles &ndash; colors, fonts, sizes, button/alert/tooltip/modal overrides/styles</li>
+            <li>vendor prefix mixins &ndash; a common application of mixins is to write one for each CSS property that requires vendor prefixes. The idea here is to write it once, then you only need to "call" it like a function when you need it.</li>
+        </ul>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <p>These two Less files:</p>
+                <pre class="codeSample prettyprint lang-css linenums">
+.foo {
+    .border-radius();
+}
+.bar {
+    .border-radius(50%);
+}</pre>
+                <pre class="codeSample prettyprint lang-css linenums">
+.border-radius (@radius: 3px) {
+    -webkit-border-radius: @radius;
+       -moz-border-radius: @radius;
+            border-radius: @radius;
+    -webkit-background-clip: padding-box;
+       -moz-background-clip: padding;
+            background-clip: padding-box;
+}</pre>
+            </div>
+            <div class="span6">
+                <p>Compile to this CSS code:</p>
+                <pre class="codeSample prettyprint lang-css linenums">
+.foo {
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    -webkit-background-clip: padding-box;
+       -moz-background-clip: padding;
+            background-clip: padding-box;
+}
+.bar {
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+    -webkit-background-clip: padding-box;
+       -moz-background-clip: padding;
+            background-clip: padding-box;
+}</pre>
+            </div>
+        </div>
+
+        <h2>Z-Index</h2>
+        <p>Using CSS preprocessor variables, we can achieve a nifty trick for managing our z-index values across large projects AND multiple files. There are more complex methods involving mixins and methods but this is simple and easy to maintain.</p>
+        <p>The basic idea here is to declare a unique variable name every time you want to add the z-index property. Then, in a separate file (_zindex.less, z-index.sass, _z-index.scss are all good choices), we can control the actual z-index values for our elements in one place. Now we can see every z-index value in our entire project at a glance, and we can modify these values easily while considering the other values as well. Lastly, we did this all by adding more code to our files but when it compiles down to CSS it actually adds nothing more than if we didn't use variables!</p>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <pre class="codeSample prettyprint lang-css linenums">
+/* z-index.less */
+@z---nav:               100;
+@z---tooltip:           200;
+@z---modal__overlay:    300;
+@z---modal__content:    310;</pre>
+                <pre class="codeSample prettyprint lang-css linenums">
+/* main.less */
+nav {
+    height: 200px;
+    position: fixed;
+    width: 100%;
+    z-index: @z---nav;
+}
+
+.tooltip {
+    color: @tooltip-blue;
+    margin: 20px;
+    z-index: @z---tooltip;
+}
+
+.modal {
+    display: none;
+}
+.modal__overlay {
+    background-color: @black;
+    opacity: 0.5;
+    z-index: @z---modal__overlay;
+}
+.modal__content {
+    background-color: @white;
+    z-index: @z---modal__content;
+}
+</pre>
+            </div>
+            <div class="span6">
+                <pre class="codeSample prettyprint lang-css linenums">
+/*
+ * styles.css (concatenated from main.less and
+ * z-index.less, then compiled to CSS)
+ */
+
+nav {
+    height: 200px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+.tooltip {
+    color: #0000ff;
+    margin: 20px;
+    z-index: 200;
+}
+.modal {
+    display: none;
+}
+.modal__overlay {
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 300;
+}
+.modal__content {
+    background-color: #fff;
+    z-index: 310;
+}</pre>
+            </div>
+        </div>
+
+
+</body>
+</html>
